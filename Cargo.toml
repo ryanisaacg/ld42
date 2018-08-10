@@ -1,0 +1,9 @@
+[package]
+name = "ld42"
+version = "0.1.0"
+authors = ["Ryan Goldstein <ryanisaacg@gmail.com>"]
+
+[dependencies]
+quicksilver = { git = "https://github.com/ryanisaacg/quicksilver", branch = "development"}
+specs = "0.12"
+specs-derive = "*"
