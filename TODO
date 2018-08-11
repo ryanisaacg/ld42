@@ -2,7 +2,7 @@
 - [x] Don't clone bounds all the dang time
 - [x] Use a nicer unit system
 - [ ] Balance walk and friction
-- [ ] Jumping
-- [ ] Many points collision
+- [x] Jumping
+- [x] Many points collision
 - [ ] Shooting new stuff for collision
 - [ ] Store the contact cache frame-to-frame
