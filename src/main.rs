@@ -56,18 +56,18 @@ struct Game {
 impl State for Game {
     fn new() -> Result<Game> {
         let mut store = Store::new();
-        store.player = store.spawn(Bounds::new(Rectangle::new((0, 0), (32, 32))));
+        store.player = store.spawn(Bounds::new(Rectangle::new((0, 0), (0.32, 0.32))));
         store.speed[store.player] = Some(Vector::new(0, 0));
-        store.accel[store.player] = Some(Vector::new(0, 0.1));
+        store.accel[store.player] = Some(Vector::new(0, 0.003));
         store.attr[store.player] = Some(PhysicsAttr {
-            speed_cap: Vector::new(6, 12),
+            speed_cap: Vector::new(0.06, 0.12),
             friction: 0.9,
         });
         store.collisions[store.player] = Some(CompositeShapeShapeManifoldGenerator::new(true));
         store.embedded[store.player] = Some(false);
         let wall_bounds = vec![
-            Rectangle::new((0, 500), (600, 100)),
-            Rectangle::new((200, 300), (230, 550))
+            Rectangle::new((0, 5), (6, 1)),
+            Rectangle::new((2, 3), (2.3, 5.5))
         ].into_iter()
             .map(|rect| (vec_to_iso(rect.center()), ShapeHandle::new(rect_to_cuboid(rect))))
             .collect();

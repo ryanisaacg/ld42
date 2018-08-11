@@ -12,7 +12,7 @@ pub fn system(store: &mut Store) {
         if let (Some(speed), Some(accel)) = (&mut store.speed[entity], &mut store.accel[entity]) {
             *speed += *accel;
         }
-        if let Some(embed) = &mut store.embedded[entity] {
+        /*if let Some(embed) = &mut store.embedded[entity] {
             let bounds = &store.bounds[entity];
             let pos = vec_to_iso(bounds.position);
             *embed = (Proximity::Intersecting == proximity(
@@ -20,35 +20,33 @@ pub fn system(store: &mut Store) {
                 bounds.shape.as_ref(),
                 &wall_pos,
                 store.bounds[store.walls].shape.as_ref(),
-                1.0
+                0.1
             ));
-        }
+        }*/
         if let (Some(speed), Some(phys)) = (&mut store.speed[entity], &mut store.attr[entity]) {
-            if let Some(true) = store.embedded[entity] {
-                continue;   
-            }
             let bounds = &mut store.bounds[entity];
             *speed = speed.clamp(-phys.speed_cap, phys.speed_cap);
             *speed *= phys.friction;
             bounds.position += *speed;
         }
         if let Some(collision) = &mut store.collisions[entity] {
-            if let Some(true) = store.embedded[entity] {
-                continue;   
-            }
             let pos = vec_to_iso(store.bounds[entity].position);
             let mut contact_cache = Vec::new();
+            let entity_id = id_gen.alloc();
+            let walls_id = id_gen.alloc();
             collision.update(
                 &dispatch,
-                entity,
+                store.collision_id[entity].id,
                 &pos,
                 store.bounds[entity].shape.as_ref(),
-                store.walls,
+                store.collision_id[store.walls].id,
                 &wall_pos,
                 store.bounds[store.walls].shape.as_ref(),
-                &ContactPrediction::new(1.0, 0.0, 0.0),
-                &mut id_gen
+                &ContactPrediction::new(0.0005, 0.0, 0.0),
+                &mut store.id_alloc
             );
+            id_gen.free(entity_id);
+            id_gen.free(walls_id);
             let touch = contact(
                 &pos,
                 store.bounds[entity].shape.as_ref(),

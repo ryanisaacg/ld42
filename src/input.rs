@@ -1,6 +1,6 @@
 use super::*;
 
-const WALK_ACCEL: f32 = 0.3;
+const WALK_ACCEL: f32 = 0.003;
 
 pub fn system(window: &Window, store: &mut Store) {
     let mut accel = Vector::new(0, store.accel[store.player].unwrap().y);
