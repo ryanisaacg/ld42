@@ -8,6 +8,12 @@
 - [x] Idle cycle
 - [x] Walk cycle
 - [x] Jump cycle
+- [x] Draw something for the ground
+- [ ] Player is stuck in the ground visually
+- [ ] Jetpack is transparent
+- [ ] Flag is visible on both arms
+- [ ] Dynamic jump height
+- [ ] Draw jump jets from the jetpack
 - [ ] Balance walk and friction
 - [ ] Shooting new stuff for collision
 - [ ] Store the contact cache frame-to-frame

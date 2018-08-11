@@ -5,7 +5,12 @@ use quicksilver::geom::Shape;
 // TODO: are subimages broken??
 
 pub fn system(window: &mut Window, assets: &mut Assets, store: &mut Store) -> Result<()> {
-    window.clear(Color::WHITE)?;
+    window.clear(Color {
+        r: 0.5,
+        g: 0.5,
+        b: 0.5,
+        a: 1.0,
+    })?;
     let scale = Transform::scale((100, 100));
     {
         let position = scale * store.bounds[store.player].position;
@@ -26,6 +31,14 @@ pub fn system(window: &mut Window, assets: &mut Assets, store: &mut Store) -> Re
             Transform::IDENTITY
         };
         window.draw_ex(&rect.translate(position), Background::Img(&frame), flip * scale, 0);
+    }
+    {
+        let compound = store.bounds[store.walls].shape
+                .as_shape::<Compound<f32>>().unwrap();
+        for i in 0..compound.shapes().len() {
+            let bounds: Rectangle = compound.aabb_at(i).clone().into();
+            window.draw_ex(&bounds.with_center(scale * bounds.center()), Background::Col(Color::RED), scale, -5);
+        }
     }
     /*{
         let bounds = store.bounds[store.walls].clone();
