@@ -40,3 +40,9 @@ pub struct PlayerTag;
 impl Component for PlayerTag {
     type Storage = HashMapStorage<Self>;
 }
+
+pub struct WallsTag;
+impl Component for WallsTag {
+    type Storage = HashMapStorage<Self>;
+}
+

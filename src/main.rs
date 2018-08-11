@@ -42,14 +42,28 @@ struct Game {
     map: Tilemap<i32>,
 }
 
+fn shape_list() -> Vec<ShapeHandle> {
+    vec![
+        Rectangle::new((0, 600), (800, 32))
+    ].into_iter()
+        .map(|rect| (rect.top_left(), rect.size()))
+        .map
+
+}
+
 impl State for Game {
     fn new() -> Result<Game> {
         let mut world = World::new();
         world.register::<Bounds>();
         world.register::<PlayerTag>();
+        word.register::<WallsTag>();
         world.create_entity()
             .with(Bounds::new(Rectangle::new((0, 0), (32, 32))))
             .with(PlayerTag)
+            .build();
+        world.create_entity()
+            .with(Bounds::new(Rectangle::new((0, 500), (600, 100))))
+            .with(WallsTag)
             .build();
         let mut map = Tilemap::new((800, 600), (32, 32));
         map.set((0, 100), Tile::solid(Some(1)));
