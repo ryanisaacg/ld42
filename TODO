@@ -5,7 +5,7 @@
 - [x] Many points collision
 - [x] Player sprite
 - [ ] Flip player correctly
-- [ ] Idle cycle
+- [x] Idle cycle
 - [ ] Walk cycle
 - [ ] Jump cycle
 - [ ] Balance walk and friction
