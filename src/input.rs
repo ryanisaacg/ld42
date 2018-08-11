@@ -18,9 +18,18 @@ pub fn system(window: &Window, store: &mut Store) {
         store.speed[store.player] = Some(Vector::new(speed.x, -0.12));
     }
 
+    let position = store.bounds[store.player].position;
     if window.keyboard()[Key::Down] == ButtonState::Released {
-        let position = store.bounds[store.player].position;
-        toss_bomb(store, position, Vector::Y);
+        toss_bomb(store, position, Vector::Y * 0.3);
+    }
+    if window.keyboard()[Key::Up] == ButtonState::Released {
+        toss_bomb(store, position, Vector::Y * -0.3);
+    }
+    if window.keyboard()[Key::Left] == ButtonState::Released {
+        toss_bomb(store, position, Vector::new(-0.5, -0.04));
+    }
+    if window.keyboard()[Key::Right] == ButtonState::Released {
+        toss_bomb(store, position, Vector::new(0.5, -0.04));
     }
 }
 
