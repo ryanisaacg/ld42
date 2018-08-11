@@ -11,8 +11,13 @@ pub fn system(window: &mut Window, assets: &mut Assets, store: &mut Store) -> Re
         let position = scale * store.bounds[store.player].position;
         let aabb = store.bounds[store.player].shape.aabb(&na::one());
         let rect: Rectangle = aabb.into();
-        assets.player_idle.tick();
-        let frame = assets.player_idle.current_frame();
+        let animation = if store.accel[store.player].unwrap().x == 0.0 {
+            &mut assets.player_idle
+        } else {
+            &mut assets.player_walk
+        };
+        animation.tick();
+        let frame = animation.current_frame();
         let flip = if store.flip[store.player] {
             Transform::scale((-1, 1))
         } else {

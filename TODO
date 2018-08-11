@@ -6,7 +6,7 @@
 - [x] Player sprite
 - [x] Flip player correctly
 - [x] Idle cycle
-- [ ] Walk cycle
+- [x] Walk cycle
 - [ ] Jump cycle
 - [ ] Balance walk and friction
 - [ ] Shooting new stuff for collision

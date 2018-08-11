@@ -6,12 +6,17 @@ pub const IMAGES: &[&str] = &[
     "astronaut_idle2.png",
     "astronaut_idle3.png",
     "astronaut_idle4.png",
+    "astronaut_walk1.png",
+    "astronaut_walk2.png",
+    "astronaut_walk3.png",
+    "astronaut_walk4.png",
 ];
 pub const SOUNDS: &[&str] = &[];
 
 pub struct Assets {
     pub player: Image,
     pub player_idle: Animation,
+    pub player_walk: Animation,
 }
 
 // TODO: include this in quicksilver
@@ -57,7 +62,13 @@ impl Assets {
                 images["astronaut_idle2.png"].clone(),
                 images["astronaut_idle3.png"].clone(),
                 images["astronaut_idle4.png"].clone(),
-            ], 11)
+            ], 11),
+            player_walk: Animation::new(vec![
+                images["astronaut_walk1.png"].clone(),
+                images["astronaut_walk2.png"].clone(),
+                images["astronaut_walk3.png"].clone(),
+                images["astronaut_walk4.png"].clone(),
+            ], 11),
         }))
     }
 }

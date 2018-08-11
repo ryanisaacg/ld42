@@ -100,5 +100,5 @@ impl State for Game {
 }
 
 fn main() {
-    run::<Game>(WindowBuilder::new("LD42 Entry!", (800, 600)));
+    run::<Game>(WindowBuilder::new("LD42 Entry!", (960, 540)));
 }
