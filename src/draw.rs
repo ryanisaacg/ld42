@@ -23,17 +23,6 @@ impl<'a, 'b> System<'a> for DrawSystem<'b> {
 fn draw<'a>(window: &mut Window, assets: &Assets, map: &'a Tilemap<i32>, data: DrawSystemData<'a>) -> Result<()> {
     window.clear(Color::WHITE)?;
     let (bounds, player_tag, walls_tag) = data;
-    let mut x = 0.0;
-    let mut y = 0.0;
-    /*while x < map.width() {
-        while y < map.height() {
-            if let Some(_) = map.get((x, y)) {
-                window.draw(&Rectangle::new((x, y), map.tile_size()), Background::Col(Color::BLACK));
-            }
-            y += map.tile_height();
-        }
-        x += map.tile_width();
-    }*/
     for (bounds, _player_tag) in (&bounds, &player_tag).join() {
         let aabb = bounds.shape.aabb(&na::one());
         let rect: Rectangle = aabb.into();

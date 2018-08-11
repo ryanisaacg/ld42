@@ -56,11 +56,13 @@ impl State for Game {
         let mut world = World::new();
         world.register::<Bounds>();
         world.register::<Speed>();
+        world.register::<Acceleration>();
         world.register::<PlayerTag>();
         world.register::<WallsTag>();
         world.create_entity()
             .with(Bounds::new(Rectangle::new((0, 0), (32, 32))))
-            .with(Speed(Vector::new(0, 3)))
+            .with(Speed(Vector::new(0, 0)))
+            .with(Acceleration(Vector::new(0, 0.1)))
             .with(PlayerTag)
             .build();
         world.create_entity()
