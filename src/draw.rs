@@ -40,6 +40,19 @@ pub fn system(window: &mut Window, assets: &mut Assets, store: &mut Store) -> Re
             window.draw_ex(&bounds.with_center(scale * bounds.center()), Background::Col(Color::RED), scale, -5);
         }
     }
+    {
+        for idx in 0..store.active.len() {
+            let entity = store.active[idx];
+            if let Some(timer) = &mut store.detonate_timer[entity] {
+                let frame = *timer / 10;
+                let image = &(assets.bomb[frame as usize]);
+                let position = scale * store.bounds[entity].position;
+                let aabb = store.bounds[entity].shape.aabb(&na::one());
+                let rect: Rectangle = aabb.into();
+                window.draw_ex(&rect.translate(position), Background::Img(image), scale, 5);
+            }
+        }
+    }
     /*{
         let bounds = store.bounds[store.walls].clone();
         let aabb = bounds.shape.aabb(&na::one());

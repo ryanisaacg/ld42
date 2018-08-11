@@ -30,7 +30,9 @@ use quicksilver::geom::Shape as brbr;
 
 mod assets;
 use assets::Assets;
+mod bomb;
 mod caching;
+mod cleanup;
 mod draw;
 mod input;
 mod physics;
@@ -85,9 +87,11 @@ impl State for Game {
     fn update(&mut self, window: &mut Window) -> Result<()> {
         let store = &mut self.store;
         self.assets.execute(|_| {
+            bomb::system(store);
             caching::system(store);
             input::system(window, store);
             physics::system(store);
+            cleanup::system(store);
             Ok(())
         })
     }

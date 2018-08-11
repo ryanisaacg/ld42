@@ -11,6 +11,12 @@ pub const IMAGES: &[&str] = &[
     "astronaut_walk2.png",
     "astronaut_walk3.png",
     "astronaut_walk4.png",
+    "bomb1.png",
+    "bomb2.png",
+    "bomb3.png",
+    "bomb4.png",
+    "bomb5.png",
+    "bomb6.png",
 ];
 pub const SOUNDS: &[&str] = &[];
 
@@ -19,6 +25,7 @@ pub struct Assets {
     pub player_idle: Animation,
     pub player_jump: Animation,
     pub player_walk: Animation,
+    pub bomb: Vec<Image>,
 }
 
 // TODO: include this in quicksilver
@@ -71,6 +78,14 @@ impl Assets {
                 images["astronaut_walk3.png"].clone(),
                 images["astronaut_walk4.png"].clone(),
             ], 11),
+            bomb: vec![
+                images["bomb6.png"].clone(),
+                images["bomb5.png"].clone(),
+                images["bomb4.png"].clone(),
+                images["bomb3.png"].clone(),
+                images["bomb2.png"].clone(),
+                images["bomb1.png"].clone(),
+            ],
         }))
     }
 }

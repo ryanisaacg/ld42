@@ -17,4 +17,22 @@ pub fn system(window: &Window, store: &mut Store) {
         let speed = store.speed[store.player].unwrap();
         store.speed[store.player] = Some(Vector::new(speed.x, -0.12));
     }
+
+    if window.keyboard()[Key::Down] == ButtonState::Released {
+        let position = store.bounds[store.player].position;
+        toss_bomb(store, position, Vector::Y);
+    }
+}
+
+fn toss_bomb(store: &mut Store, center: Vector, initial_speed: Vector) {
+    let rectangle = Rectangle::new((0, 0), (0.16, 0.16)).with_center(center);
+    let bomb = store.spawn(Bounds::new(rectangle));
+    store.speed[bomb] = Some(initial_speed);
+    store.accel[bomb] = Some(Vector::new(0, 0.003));
+    store.attr[bomb] = Some(PhysicsAttr {
+        speed_cap: Vector::new(0.06, 0.12),
+        friction: 1.0,
+    });
+    store.collisions[bomb] = Some(CompositeShapeShapeManifoldGenerator::new(true));
+    store.detonate_timer[bomb] = Some(59);
 }

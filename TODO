@@ -9,6 +9,10 @@
 - [x] Walk cycle
 - [x] Jump cycle
 - [x] Draw something for the ground
+- [x] Draw a bomb animation
+- [ ] Player can throw bombs
+- [ ] Bombs detonate into new blocks
+- [ ] Draw the new blocks
 - [ ] Player is stuck in the ground visually
 - [ ] Jetpack is transparent
 - [ ] Flag is visible on both arms

@@ -12,9 +12,11 @@ pub struct Store {
     pub embedded: Vec<Option<bool>>,
     pub flip: Vec<bool>,
     pub supported: Vec<bool>,
+    pub detonate_timer: Vec<Option<u32>>,
     pub player: usize,
     pub walls: usize,
     pub id_alloc: IdAllocator,
+    pub deleted: Vec<usize>,
     next_id: usize,
 }
 
@@ -31,6 +33,8 @@ impl Store {
             embedded: Vec::new(),
             flip: Vec::new(),
             supported: Vec::new(),
+            detonate_timer: Vec::new(),
+            deleted: Vec::new(),
             player: 0,
             walls: 0,
             next_id: 0,
@@ -51,7 +55,18 @@ impl Store {
         self.embedded.push(None);
         self.flip.push(false);
         self.supported.push(false);
+        self.detonate_timer.push(None);
         id
+    }
+
+    pub fn despawn(&mut self, idx: usize) {
+        let entity = self.active.remove(idx);
+        self.speed[entity] = None;
+        self.accel[entity] = None;
+        self.attr[entity] = None;
+        self.collisions[entity] = None;
+        self.embedded[entity] = None;
+        self.detonate_timer[entity] = None;
     }
 }
 
