@@ -11,7 +11,9 @@ pub fn system(window: &mut Window, assets: &mut Assets, store: &mut Store) -> Re
         let position = scale * store.bounds[store.player].position;
         let aabb = store.bounds[store.player].shape.aabb(&na::one());
         let rect: Rectangle = aabb.into();
-        let animation = if store.accel[store.player].unwrap().x == 0.0 {
+        let animation = if !store.supported[store.player] {
+            &mut assets.player_jump
+        } else if store.accel[store.player].unwrap().x == 0.0 {
             &mut assets.player_idle
         } else {
             &mut assets.player_walk

@@ -6,6 +6,7 @@ pub const IMAGES: &[&str] = &[
     "astronaut_idle2.png",
     "astronaut_idle3.png",
     "astronaut_idle4.png",
+    "astronaut_jump.png",
     "astronaut_walk1.png",
     "astronaut_walk2.png",
     "astronaut_walk3.png",
@@ -16,6 +17,7 @@ pub const SOUNDS: &[&str] = &[];
 pub struct Assets {
     pub player: Image,
     pub player_idle: Animation,
+    pub player_jump: Animation,
     pub player_walk: Animation,
 }
 
@@ -23,14 +25,11 @@ pub struct Assets {
 fn from_sheet(image: Image, columns: u32, frame_delay: u32) -> Animation {
     let mut subimage_size = image.area().size();
     subimage_size.x = subimage_size.x / (columns as f32);
-    println!("{:?}", subimage_size);
     let mut frames = Vec::new();
     for i in 0..columns {
         let view = Rectangle::new(Vector::X * subimage_size.x * i, subimage_size);
-        println!("{:?}", view);
         frames.push(image.subimage(view));
     }
-    println!("{:?}", frames);
     Animation::new(frames, frame_delay)
 }
 
@@ -62,6 +61,9 @@ impl Assets {
                 images["astronaut_idle2.png"].clone(),
                 images["astronaut_idle3.png"].clone(),
                 images["astronaut_idle4.png"].clone(),
+            ], 11),
+            player_jump: Animation::new(vec![
+                images["astronaut_jump.png"].clone(),
             ], 11),
             player_walk: Animation::new(vec![
                 images["astronaut_walk1.png"].clone(),

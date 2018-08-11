@@ -7,7 +7,7 @@
 - [x] Flip player correctly
 - [x] Idle cycle
 - [x] Walk cycle
-- [ ] Jump cycle
+- [x] Jump cycle
 - [ ] Balance walk and friction
 - [ ] Shooting new stuff for collision
 - [ ] Store the contact cache frame-to-frame
