@@ -7,6 +7,7 @@ extern crate quicksilver;
 use {
     ncollide2d::{
         bounding_volume::*,
+        narrow_phase::*,
         partitioning::*,
         procedural::*,
         query::*,
@@ -25,6 +26,7 @@ use {
     },
     std::collections::HashMap
 };
+use quicksilver::geom::Shape as brbr;
 
 mod assets;
 use assets::Assets;
@@ -38,6 +40,11 @@ use store::*;
 fn vec_to_iso(vec: Vector) -> na::Isometry2<f32> {
     let vec = na::Vector2::new(vec.x, vec.y);
     na::Isometry2::new(vec, na::zero())
+}
+
+fn rect_to_cuboid(rect: Rectangle) -> Cuboid<f32> {
+    let half_extents = rect.size() / 2;
+    Cuboid::new(na::Vector2::new(half_extents.x, half_extents.y))
 }
 
 struct Game {
@@ -56,7 +63,18 @@ impl State for Game {
             speed_cap: Vector::new(6, 12),
             friction: 0.9,
         });
-        store.walls = store.spawn(Bounds::new(Rectangle::new((0, 500), (600, 100))));
+        store.collisions[store.player] = Some(CompositeShapeShapeManifoldGenerator::new(true));
+        store.embedded[store.player] = Some(false);
+        let wall_bounds = vec![
+            Rectangle::new((0, 500), (600, 100)),
+            Rectangle::new((200, 300), (230, 550))
+        ].into_iter()
+            .map(|rect| (vec_to_iso(rect.center()), ShapeHandle::new(rect_to_cuboid(rect))))
+            .collect();
+        store.walls = store.spawn(Bounds {
+            position: Vector::ZERO,
+            shape: ShapeHandle::new(Compound::new(wall_bounds))
+        });
         Ok(Game {
             assets: Assets::new(),
             store,

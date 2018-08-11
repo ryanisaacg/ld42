@@ -1,6 +1,8 @@
-- [ ] Write my own storage system
-- [ ] Don't clone bounds all the dang time
+- [x] Write my own storage system
+- [x] Don't clone bounds all the dang time
+- [ ] Use a nicer unit system
 - [ ] Balance walk and friction
 - [ ] Jumping
 - [ ] Many points collision
 - [ ] Shooting new stuff for collision
+- [ ] Store the contact cache frame-to-frame

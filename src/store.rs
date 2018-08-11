@@ -7,6 +7,8 @@ pub struct Store {
     pub speed: Vec<Option<Vector>>,
     pub accel: Vec<Option<Vector>>,
     pub attr: Vec<Option<PhysicsAttr>>,
+    pub collisions: Vec<Option<CompositeShapeShapeManifoldGenerator<f32>>>,
+    pub embedded: Vec<Option<bool>>,
     pub player: usize,
     pub walls: usize,
     next_id: usize,
@@ -20,6 +22,8 @@ impl Store {
             speed: Vec::new(),
             accel: Vec::new(),
             attr: Vec::new(),
+            collisions: Vec::new(),
+            embedded: Vec::new(),
             player: 0,
             walls: 0,
             next_id: 0,
@@ -34,6 +38,8 @@ impl Store {
         self.speed.push(None);
         self.accel.push(None);
         self.attr.push(None);
+        self.collisions.push(None);
+        self.embedded.push(None);
         id
     }
 }
@@ -47,8 +53,7 @@ pub struct Bounds {
 impl Bounds {
     pub fn new(rect: Rectangle) -> Bounds {
         let position = rect.center();
-        let half_extents = rect.size() / 2;
-        let shape = ShapeHandle::new(Cuboid::new(na::Vector2::new(half_extents.x, half_extents.y)));
+        let shape = ShapeHandle::new(rect_to_cuboid(rect));
         Bounds {
             position,
             shape,
