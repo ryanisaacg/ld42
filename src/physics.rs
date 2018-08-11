@@ -5,7 +5,6 @@ use super::*;
 pub fn system(store: &mut Store) {
     let wall_pos = vec_to_iso(store.bounds[store.walls].position);
     let dispatch = DefaultContactDispatcher::new();
-    let mut id_gen = IdAllocator::new();
     // TODO: make this more cache-friendly
     for idx in 0..store.active.len() {
         let entity = store.active[idx];
@@ -32,8 +31,6 @@ pub fn system(store: &mut Store) {
         if let Some(collision) = &mut store.collisions[entity] {
             let pos = vec_to_iso(store.bounds[entity].position);
             let mut contact_cache = Vec::new();
-            let entity_id = id_gen.alloc();
-            let walls_id = id_gen.alloc();
             collision.update(
                 &dispatch,
                 store.collision_id[entity].id,
@@ -45,8 +42,6 @@ pub fn system(store: &mut Store) {
                 &ContactPrediction::new(0.0005, 0.0, 0.0),
                 &mut store.id_alloc
             );
-            id_gen.free(entity_id);
-            id_gen.free(walls_id);
             let touch = contact(
                 &pos,
                 store.bounds[entity].shape.as_ref(),
@@ -62,7 +57,6 @@ pub fn system(store: &mut Store) {
                     store.bounds[entity].position -= penetration;
                 }
             }
-            contact_cache.clear();
         }
     }
 }
