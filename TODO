@@ -4,7 +4,7 @@
 - [x] Jumping
 - [x] Many points collision
 - [x] Player sprite
-- [ ] Flip player correctly
+- [x] Flip player correctly
 - [x] Idle cycle
 - [ ] Walk cycle
 - [ ] Jump cycle

@@ -13,7 +13,12 @@ pub fn system(window: &mut Window, assets: &mut Assets, store: &mut Store) -> Re
         let rect: Rectangle = aabb.into();
         assets.player_idle.tick();
         let frame = assets.player_idle.current_frame();
-        window.draw_ex(&rect.translate(position), Background::Img(&frame), scale, 0);
+        let flip = if store.flip[store.player] {
+            Transform::scale((-1, 1))
+        } else {
+            Transform::IDENTITY
+        };
+        window.draw_ex(&rect.translate(position), Background::Img(&frame), flip * scale, 0);
     }
     /*{
         let bounds = store.bounds[store.walls].clone();

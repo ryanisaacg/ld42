@@ -10,6 +10,7 @@ pub struct Store {
     pub attr: Vec<Option<PhysicsAttr>>,
     pub collisions: Vec<Option<CompositeShapeShapeManifoldGenerator<f32>>>,
     pub embedded: Vec<Option<bool>>,
+    pub flip: Vec<bool>,
     pub player: usize,
     pub walls: usize,
     pub id_alloc: IdAllocator,
@@ -27,6 +28,7 @@ impl Store {
             attr: Vec::new(),
             collisions: Vec::new(),
             embedded: Vec::new(),
+            flip: Vec::new(),
             player: 0,
             walls: 0,
             next_id: 0,
@@ -45,6 +47,7 @@ impl Store {
         self.attr.push(None);
         self.collisions.push(None);
         self.embedded.push(None);
+        self.flip.push(false);
         id
     }
 }
