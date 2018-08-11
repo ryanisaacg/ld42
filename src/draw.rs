@@ -5,7 +5,6 @@ use specs::Join;
 pub struct DrawSystem<'a> {
     pub window: &'a mut Window,
     pub assets: &'a Assets,
-    pub map: &'a Tilemap<i32>
 }
 
 type DrawSystemData<'a> = (ReadStorage<'a, Bounds>,
@@ -16,11 +15,11 @@ impl<'a, 'b> System<'a> for DrawSystem<'b> {
     type SystemData = DrawSystemData<'a>;
 
     fn run(&mut self, data: DrawSystemData<'a>) {
-        draw(self.window, self.assets, self.map, data).unwrap();
+        draw(self.window, self.assets, data).unwrap();
     }
 }
 
-fn draw<'a>(window: &mut Window, assets: &Assets, map: &'a Tilemap<i32>, data: DrawSystemData<'a>) -> Result<()> {
+fn draw<'a>(window: &mut Window, assets: &Assets, data: DrawSystemData<'a>) -> Result<()> {
     window.clear(Color::WHITE)?;
     let (bounds, player_tag, walls_tag) = data;
     for (bounds, _player_tag) in (&bounds, &player_tag).join() {

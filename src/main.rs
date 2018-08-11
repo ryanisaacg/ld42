@@ -23,6 +23,7 @@ use {
         geom::*,
         graphics::*,
         lifecycle::*,
+        input::*,
         sound::*,
     },
     specs::*,
@@ -35,6 +36,8 @@ mod draw;
 use draw::*;
 mod components;
 use components::*;
+mod input;
+use input::*;
 mod physics;
 use physics::*;
 
@@ -47,7 +50,6 @@ fn vec_to_iso(vec: Vector) -> na::Isometry2<f32> {
 struct Game {
     assets: Asset<Assets>,
     world: World,
-    map: Tilemap<i32>,
 }
 
 
@@ -69,20 +71,17 @@ impl State for Game {
             .with(Bounds::new(Rectangle::new((0, 500), (600, 100))))
             .with(WallsTag)
             .build();
-        let mut map = Tilemap::new((800, 600), (32, 32));
-        map.set((0, 100), Tile::solid(Some(1)));
         Ok(Game {
             assets: Assets::new(),
             world,
-            map,
         })
     }
 
     fn update(&mut self, window: &mut Window) -> Result<()> {
         let world = &self.world;
-        let map = &self.map;
         self.assets.execute(|assets| {
-            PhysicsSystem { assets, map }.run_now(&world.res);
+            InputSystem { window }.run_now(&world.res);
+            PhysicsSystem.run_now(&world.res);
             Ok(())
         })
     }
@@ -90,13 +89,8 @@ impl State for Game {
     fn draw(&mut self, window: &mut Window) -> Result<()> {
         window.clear(Color::WHITE)?;
         let world = &self.world;
-        let map = &self.map;
         self.assets.execute(|assets| {
-            let mut draw = DrawSystem {
-                window,
-                assets,
-                map,
-            };
+            let mut draw = DrawSystem { window, assets };
             draw.run_now(&world.res);
             Ok(())
         })
