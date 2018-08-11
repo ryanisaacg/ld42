@@ -59,12 +59,17 @@ impl State for Game {
         world.register::<Bounds>();
         world.register::<Speed>();
         world.register::<Acceleration>();
+        world.register::<PhysicsAttr>();
         world.register::<PlayerTag>();
         world.register::<WallsTag>();
         world.create_entity()
             .with(Bounds::new(Rectangle::new((0, 0), (32, 32))))
             .with(Speed(Vector::new(0, 0)))
             .with(Acceleration(Vector::new(0, 0.1)))
+            .with(PhysicsAttr {
+                speed_cap: Vector::new(6, 12),
+                friction: 0.9,
+            })
             .with(PlayerTag)
             .build();
         world.create_entity()

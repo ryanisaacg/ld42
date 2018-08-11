@@ -36,6 +36,14 @@ impl Component for Acceleration {
     type Storage = VecStorage<Self>;
 }
 
+pub struct PhysicsAttr {
+    pub speed_cap: Vector,
+    pub friction: f32,
+}
+impl Component for PhysicsAttr {
+    type Storage = VecStorage<Self>;
+}
+
 pub struct PlayerTag;
 impl Component for PlayerTag {
     type Storage = HashMapStorage<Self>;

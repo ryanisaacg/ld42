@@ -5,6 +5,8 @@ pub struct InputSystem<'a> {
     pub window: &'a mut Window,
 }
 
+const WALK_ACCEL: f32 = 0.3;
+
 type InputSystemData<'a> = (ReadStorage<'a, Bounds>,
     WriteStorage<'a, Speed>,
     WriteStorage<'a, Acceleration>,
@@ -23,10 +25,10 @@ impl<'a, 'b> System<'a> for InputSystem<'b> {
         for (accel, _player_tag) in (&mut accel, &player_tag).join() {
             accel.0.x = 0.0;
             if self.window.keyboard()[Key::D].is_down() {
-                accel.0.x += 0.2;
+                accel.0.x += WALK_ACCEL;
             }
             if self.window.keyboard()[Key::A].is_down() {
-                accel.0.x -= 0.2;
+                accel.0.x -= WALK_ACCEL;
             }
         }
     }
