@@ -1,3 +1,5 @@
+//TODO: nalgebra isometry conversion with quicksilver
+
 extern crate nalgebra as na;
 extern crate ncollide2d;
 extern crate quicksilver;
@@ -36,29 +38,29 @@ use components::*;
 mod physics;
 use physics::*;
 
+// TODO: include in quicksilver
+fn vec_to_iso(vec: Vector) -> na::Isometry2<f32> {
+    let vec = na::Vector2::new(vec.x, vec.y);
+    na::Isometry2::new(vec, na::zero())
+}
+
 struct Game {
     assets: Asset<Assets>,
     world: World,
     map: Tilemap<i32>,
 }
 
-fn shape_list() -> Vec<ShapeHandle> {
-    vec![
-        Rectangle::new((0, 600), (800, 32))
-    ].into_iter()
-        .map(|rect| (rect.top_left(), rect.size()))
-        .map
-
-}
 
 impl State for Game {
     fn new() -> Result<Game> {
         let mut world = World::new();
         world.register::<Bounds>();
+        world.register::<Speed>();
         world.register::<PlayerTag>();
-        word.register::<WallsTag>();
+        world.register::<WallsTag>();
         world.create_entity()
             .with(Bounds::new(Rectangle::new((0, 0), (32, 32))))
+            .with(Speed(Vector::new(0, 3)))
             .with(PlayerTag)
             .build();
         world.create_entity()
