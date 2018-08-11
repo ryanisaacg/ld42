@@ -3,9 +3,6 @@
 extern crate nalgebra as na;
 extern crate ncollide2d;
 extern crate quicksilver;
-#[macro_use]
-extern crate specs_derive;
-extern crate specs;
 
 use {
     ncollide2d::{
@@ -26,20 +23,16 @@ use {
         input::*,
         sound::*,
     },
-    specs::*,
     std::collections::HashMap
 };
 
 mod assets;
-use assets::*;
+use assets::Assets;
 mod draw;
-use draw::*;
-mod components;
-use components::*;
 mod input;
-use input::*;
 mod physics;
-use physics::*;
+mod store;
+use store::*;
 
 // TODO: include in quicksilver
 fn vec_to_iso(vec: Vector) -> na::Isometry2<f32> {
@@ -49,55 +42,41 @@ fn vec_to_iso(vec: Vector) -> na::Isometry2<f32> {
 
 struct Game {
     assets: Asset<Assets>,
-    world: World,
+    store: Store,
 }
 
 
 impl State for Game {
     fn new() -> Result<Game> {
-        let mut world = World::new();
-        world.register::<Bounds>();
-        world.register::<Speed>();
-        world.register::<Acceleration>();
-        world.register::<PhysicsAttr>();
-        world.register::<PlayerTag>();
-        world.register::<WallsTag>();
-        world.create_entity()
-            .with(Bounds::new(Rectangle::new((0, 0), (32, 32))))
-            .with(Speed(Vector::new(0, 0)))
-            .with(Acceleration(Vector::new(0, 0.1)))
-            .with(PhysicsAttr {
-                speed_cap: Vector::new(6, 12),
-                friction: 0.9,
-            })
-            .with(PlayerTag)
-            .build();
-        world.create_entity()
-            .with(Bounds::new(Rectangle::new((0, 500), (600, 100))))
-            .with(WallsTag)
-            .build();
+        let mut store = Store::new();
+        store.player = store.spawn(Bounds::new(Rectangle::new((0, 0), (32, 32))));
+        store.speed[store.player] = Some(Vector::new(0, 0));
+        store.accel[store.player] = Some(Vector::new(0, 0.1));
+        store.attr[store.player] = Some(PhysicsAttr {
+            speed_cap: Vector::new(6, 12),
+            friction: 0.9,
+        });
+        store.walls = store.spawn(Bounds::new(Rectangle::new((0, 500), (600, 100))));
         Ok(Game {
             assets: Assets::new(),
-            world,
+            store,
         })
     }
 
     fn update(&mut self, window: &mut Window) -> Result<()> {
-        let world = &self.world;
-        self.assets.execute(|assets| {
-            InputSystem { window }.run_now(&world.res);
-            PhysicsSystem.run_now(&world.res);
+        let store = &mut self.store;
+        self.assets.execute(|_| {
+            input::system(window, store);
+            physics::system(store);
             Ok(())
         })
     }
 
     fn draw(&mut self, window: &mut Window) -> Result<()> {
         window.clear(Color::WHITE)?;
-        let world = &self.world;
+        let store = &mut self.store;
         self.assets.execute(|assets| {
-            let mut draw = DrawSystem { window, assets };
-            draw.run_now(&world.res);
-            Ok(())
+            draw::system(window, assets, store)
         })
     }
 }

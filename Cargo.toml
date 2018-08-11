@@ -7,5 +7,3 @@ authors = ["Ryan Goldstein <ryanisaacg@gmail.com>"]
 nalgebra = "0.15.0"
 ncollide2d = "0.16.0"
 quicksilver = { git = "https://github.com/ryanisaacg/quicksilver", branch = "ludum-dare"}
-specs = "0.12"
-specs-derive = "*"

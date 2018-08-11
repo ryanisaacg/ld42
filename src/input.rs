@@ -1,35 +1,17 @@
 use super::*;
-use specs::Join;
-
-pub struct InputSystem<'a> {
-    pub window: &'a mut Window,
-}
 
 const WALK_ACCEL: f32 = 0.3;
 
-type InputSystemData<'a> = (ReadStorage<'a, Bounds>,
-    WriteStorage<'a, Speed>,
-    WriteStorage<'a, Acceleration>,
-    ReadStorage<'a, PlayerTag>,
-    ReadStorage<'a, WallsTag>);
-
-impl<'a, 'b> System<'a> for InputSystem<'b> {
-    type SystemData = InputSystemData<'a>;
-
-    fn run(&mut self, data: InputSystemData<'a>) {
-        let (bounds, mut speed, mut accel, player_tag, walls_tag) = data;
-        let (wall_pos, wall_shape) = {
-            let walls = (&bounds, &walls_tag).join().next().unwrap().0;
-            (vec_to_iso(walls.position), walls.shape.clone())
-        };
-        for (accel, _player_tag) in (&mut accel, &player_tag).join() {
-            accel.0.x = 0.0;
-            if self.window.keyboard()[Key::D].is_down() {
-                accel.0.x += WALK_ACCEL;
-            }
-            if self.window.keyboard()[Key::A].is_down() {
-                accel.0.x -= WALK_ACCEL;
-            }
-        }
+pub fn system(window: &Window, store: &mut Store) {
+    let wall_bounds = store.bounds[store.walls].clone();
+    let wall_pos = vec_to_iso(wall_bounds.position);
+    let wall_shape = wall_bounds.shape;
+    let mut accel = Vector::ZERO;
+    if window.keyboard()[Key::D].is_down() {
+        accel.x += WALK_ACCEL;
     }
+    if window.keyboard()[Key::A].is_down() {
+        accel.x -= WALK_ACCEL;
+    }
+    store.accel[store.player] = Some(accel);
 }
