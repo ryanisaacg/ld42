@@ -1,8 +1,13 @@
 - [x] Write my own storage system
 - [x] Don't clone bounds all the dang time
 - [x] Use a nicer unit system
-- [ ] Balance walk and friction
 - [x] Jumping
 - [x] Many points collision
+- [x] Player sprite
+- [ ] Flip player correctly
+- [ ] Idle cycle
+- [ ] Walk cycle
+- [ ] Jump cycle
+- [ ] Balance walk and friction
 - [ ] Shooting new stuff for collision
 - [ ] Store the contact cache frame-to-frame
