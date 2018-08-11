@@ -21,3 +21,9 @@
 - [ ] Balance walk and friction
 - [ ] Shooting new stuff for collision
 - [ ] Store the contact cache frame-to-frame
+- [ ] Draw lava
+- [ ] Player dying falling into lava
+- [ ] Increase lava height over time
+- [ ] Camera follows player
+- [ ] There's a goal at some point on each level
+- [ ] Proc-gen levels?
