@@ -846,7 +846,9 @@ dependencies = [
 name = "ld42"
 version = "0.1.0"
 dependencies = [
- "quicksilver 0.2.1 (git+https://github.com/ryanisaacg/quicksilver?branch=development)",
+ "nalgebra 0.15.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ncollide2d 0.16.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "quicksilver 0.2.1 (git+https://github.com/ryanisaacg/quicksilver?branch=ludum-dare)",
  "specs 0.12.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "specs-derive 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -1313,7 +1315,7 @@ dependencies = [
 [[package]]
 name = "quicksilver"
 version = "0.2.1"
-source = "git+https://github.com/ryanisaacg/quicksilver?branch=development#bda497ccd50eaf9f28105c9d2a51f6d962499cef"
+source = "git+https://github.com/ryanisaacg/quicksilver?branch=ludum-dare#85969cb566099aa28046d215f1e55a132b9a512f"
 dependencies = [
  "futures 0.1.23 (registry+https://github.com/rust-lang/crates.io-index)",
  "gilrs 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -2231,7 +2233,7 @@ dependencies = [
 "checksum png 0.12.0 (registry+https://github.com/rust-lang/crates.io-index)" = "f54b9600d584d3b8a739e1662a595fab051329eff43f20e7d8cc22872962145b"
 "checksum proc-macro2 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)" = "cd07deb3c6d1d9ff827999c7f9b04cdfd66b1b17ae508e14fe47b620f2282ae0"
 "checksum proc-macro2 0.4.9 (registry+https://github.com/rust-lang/crates.io-index)" = "cccdc7557a98fe98453030f077df7f3a042052fae465bb61d2c2c41435cfd9b6"
-"checksum quicksilver 0.2.1 (git+https://github.com/ryanisaacg/quicksilver?branch=development)" = "<none>"
+"checksum quicksilver 0.2.1 (git+https://github.com/ryanisaacg/quicksilver?branch=ludum-dare)" = "<none>"
 "checksum quote 0.3.15 (registry+https://github.com/rust-lang/crates.io-index)" = "7a6e920b65c65f10b2ae65c831a81a073a89edd28c7cce89475bff467ab4167a"
 "checksum quote 0.4.2 (registry+https://github.com/rust-lang/crates.io-index)" = "1eca14c727ad12702eb4b6bfb5a232287dcf8385cb8ca83a3eeaf6519c44c408"
 "checksum quote 0.6.5 (registry+https://github.com/rust-lang/crates.io-index)" = "3372dc35766b36a99ce2352bd1b6ea0137c38d215cc0c8780bf6de6df7842ba9"

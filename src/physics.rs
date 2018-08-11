@@ -3,6 +3,7 @@ use specs::Join;
 
 pub struct PhysicsSystem<'a> {
     pub assets: &'a Assets,
+    pub map: &'a Tilemap<i32>,
 }
 
 type PhysicsSystemData<'a> = (WriteStorage<'a, Bounds>,
@@ -14,7 +15,7 @@ impl<'a, 'b> System<'a> for PhysicsSystem<'b> {
     fn run(&mut self, mut data: PhysicsSystemData<'a>) {
         let (mut bounds, player_tag) = data;
         for (bounds, player_tag) in (&mut bounds, &player_tag).join() {
-            bounds.0 = bounds.0.translate((0.01, 0.01));
+            bounds.position += Vector::new(1, 1);
         }
     }
 }
