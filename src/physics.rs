@@ -42,13 +42,6 @@ pub fn system(store: &mut Store) {
                 &ContactPrediction::new(0.0005, 0.0, 0.0),
                 &mut store.id_alloc
             );
-            let touch = contact(
-                &pos,
-                store.bounds[entity].shape.as_ref(),
-                &wall_pos,
-                store.bounds[store.walls].shape.as_ref(),
-                0.0
-            );
             collision.contacts(&mut contact_cache);
             for contact in contact_cache.drain(..) {
                 if let Some(deep) = contact.deepest_contact() {
