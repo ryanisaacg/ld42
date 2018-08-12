@@ -11,8 +11,9 @@
 - [x] Draw something for the ground
 - [x] Draw a bomb animation
 - [x] Player can throw bombs
-- [ ] Bombs detonate into new blocks
-- [ ] Draw the new blocks
+- [x] Bombs detonate into new blocks
+- [x] Draw the new blocks
+- [ ] Grid-based block system
 - [ ] Player is stuck in the ground visually
 - [ ] Jetpack is transparent
 - [ ] Flag is visible on both arms
