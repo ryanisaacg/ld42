@@ -13,9 +13,8 @@
 - [x] Player can throw bombs
 - [x] Bombs detonate into new blocks
 - [x] Draw the new blocks
-- [ ] Grid-based block system
 - [ ] Player is stuck in the ground visually
-- [ ] Jetpack is transparent
+- [x] Jetpack is transparent
 - [ ] Flag is visible on both arms
 - [ ] Dynamic jump height
 - [ ] Draw jump jets from the jetpack
